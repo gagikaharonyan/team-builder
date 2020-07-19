@@ -16,6 +16,13 @@ window.client = (function() {
     'Accept': 'application/json',
     'token' : window.getSession()
   }
+  function setHeadersWithToken() {
+    return {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'token' : window.getSession()
+    }
+  }
 
     function login(data, onLoading, onSuccess, onError) {
       onLoading(true);
@@ -55,7 +62,6 @@ window.client = (function() {
     }
 
     function register(data, onSuccess) {
-      console.log(data)
       fetch(base+'/api/v1/users/register', {
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +70,15 @@ window.client = (function() {
         method: 'POST',
         body: JSON.stringify(data)
       }).then(checkStatus)
-      .then(parseJSON)
+      .then((response) => onSuccess(response))
+    }
+
+    function editProfile(data, onSuccess) {
+      fetch(base+'/api/v1/users/update', {
+        headers: setHeadersWithToken(),
+        method: 'PUT',
+        body: JSON.stringify(data)
+      }).then(checkStatus)
       .then((response) => onSuccess(response))
     }
 
@@ -82,7 +96,7 @@ window.client = (function() {
       onLoading(true);
 
       fetch(base+'/api/v1/topics', {
-          headers: headerWitToken,
+          headers: setHeadersWithToken(),
           method: 'GET'
         })
       .then((response) => {
@@ -145,6 +159,167 @@ window.client = (function() {
       .then((response) => onSuccess(response))
       .catch((error) => onError(error));
     }
+
+    function getProjects(onLoading, onSuccess, onError) {
+      // onLoading(true);
+
+      // fetch(base+'/api/v1/projects', {
+      //     headers: headerWitToken,
+      //     method: 'GET'
+      //   })
+      // .then((response) => {
+      //     onLoading(false);
+
+      //     return checkStatus(response);
+      // })
+      // .then(parseJSON)
+      // .then((response) => onSuccess(response))
+      // .catch((error) => onError(error));
+
+      onSuccess([
+        {
+          id: 1,
+          title: 'Image Crop',
+          description: 'Test descsssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssss',
+          votedByMe: true,
+        },
+         {
+          id: 2,
+          title: 'Canvas',
+          description: 'Test desc2',
+          votedByMe: false,
+        }
+    ])
+    }
+
+    function voteProject(id, type, onLoading, onSuccess, onError) {
+      // onLoading(true);
+
+      // fetch(base+`/api/v1/projects/${id}/voting`, {
+      //     headers: headerWitToken,
+      //     method: 'POST',
+      //     body: JSON.stringify({type})
+      //   })
+      // .then((response) => {
+      //     onLoading(false);
+
+      //     return checkStatus(response);
+      // })
+      // .then((response) => onSuccess(response))
+      // .catch((error) => onError(error));
+      onSuccess();
+    }
+
+    function getTeams(onLoading, onSuccess, onError) {
+      // onLoading(true);
+
+      // fetch(base+'/api/v1/teams', {
+      //     headers: headerWitToken,
+      //     method: 'GET'
+      //   })
+      // .then((response) => {
+      //     onLoading(false);
+
+      //     return checkStatus(response);
+      // })
+      // .then(parseJSON)
+      // .then((response) => onSuccess(response))
+      // .catch((error) => onError(error));
+
+      onSuccess([
+        {
+           id: 1,
+           name: 'Editor',
+           topic: 'Hooks',
+           project: 'Canvas',
+           members: [
+              {
+                  firstName: 'Gagikkk1',
+                  lastName: 'Aharonyaaannnnnnnnnnnn',
+                  avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+              },
+              {
+                firstName: 'Namte2',
+                lastName: 'Lnassmtttte',
+                avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+            },
+            {
+              firstName: 'Naasdasdme3',
+              lastName: 'Lnassssddme',
+              avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+            },
+            {
+              firstName: 'Name4',
+              lastName: 'Lnamtttttte',
+              avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+            }
+           ]
+        },
+        {
+          id: 2,
+          name: 'Editor',
+          topic: 'Hooks',
+          project: 'Canvas',
+          members: [
+             {
+                 firstName: 'Gagikkk1',
+                 lastName: 'Aharonyaaannnnnnnnnnnn',
+                 avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+             },
+             {
+               firstName: 'Namte2',
+               lastName: 'Lnassmtttte',
+               avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+           },
+           {
+             firstName: 'Naasdasdme3',
+             lastName: 'Lnassssddme',
+             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+           },
+           {
+             firstName: 'Name4',
+             lastName: 'Lnamtttttte',
+             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+           },
+           {
+            firstName: 'Name4',
+            lastName: 'Lnamtttttte',
+            avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+          }
+          ]
+       },
+       {
+        id: 3,
+        name: 'Editor',
+        topic: 'Hooks',
+        project: 'Canvas',
+        members: [
+           {
+               firstName: 'Gagikkk1',
+               lastName: 'Aharonyaaannnnnnnnnnnn',
+               avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+           },
+           {
+             firstName: 'Namte2',
+             lastName: 'Lnassmtttte',
+             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+         },
+         {
+           firstName: 'Naasdasdme3',
+           lastName: 'Lnassssddme',
+           avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+         },
+         {
+           firstName: 'Name4',
+           lastName: 'Lnamtttttte',
+           avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
+         }
+        ]
+     },
+        
+        
+      ])
+    }
    
     function checkStatus(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -166,10 +341,14 @@ window.client = (function() {
         register,
         login,
         logOut,
+        editProfile,
         getCompanies,
         getTopics,
         addTopic,
         deleteTopic,
         voteTopic,
+        getProjects,
+        voteProject,
+        getTeams,
     };
 })();

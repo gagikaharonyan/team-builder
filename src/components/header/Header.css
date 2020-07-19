@@ -12,21 +12,18 @@
     justify-content: space-between;
 }
 
-.Header > div {
-    
-}
-
-.header-links {
-    justify-content: space-evenly;
+.unlogined-logo {
+    font-size: 25px;
+    margin: auto;
 }
 
 .header-user-info {
-    width: 100%;
+    width: 400px;
     position: relative;
     max-height: 36px;
 }
 
-.header-user-info > div {
+.header-user-info > a > div {
     height: 45px;
     background-color: #f0f0f0;
     justify-content: space-between;
@@ -34,7 +31,11 @@
     padding: 0;
 }
 
-.header-user-info > div > div{
+.header-user-info > a {
+    width: 100%;
+}
+
+.header-user-info > a > div > div{
     display: flex;
     justify-content: flex-end;
     padding: 0;
@@ -61,7 +62,12 @@
 }
 
 @media (max-width: 768px) { 
+    .app-logo {
+        display: none;
+    }
+    
     .header-user-info {
-        margin-right: 250px;
+        margin-right: 60px;
+        font-size: 13px;
     }
  }

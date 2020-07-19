@@ -1,9 +1,3 @@
-.Topic.container {
-    max-width: 600px;
-    font-family: 'Karla', sans-serif;
-    font-size: 17px;
-}
-
 .add-topic-btn {
     font-size: 25px;
     border: 1px solid #a1a1a1;
@@ -12,6 +6,7 @@
 }
 
 .add-topic-input {
+    width: 100%;
     height: 45px;
     border: none;
     border-radius: 5px;
@@ -45,8 +40,13 @@
     font-weight: 500;
 }
 
+.Topic.container {
+    max-width: 600px;
+    font-family: 'Karla', sans-serif;
+    font-size: 17px;
+}
+
 .Topic {
-    height: 120px;
     background-color: #f0f0f0;
     border-radius: 5px;
     box-sizing: border-box;
@@ -58,6 +58,7 @@
     width: 100%;
     font-size: 35px;
     border-bottom: 1px solid #a1a1a1;
+    word-wrap: break-word;
     padding-bottom: 7px;
 }
 

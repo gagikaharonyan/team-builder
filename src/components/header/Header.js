@@ -17,11 +17,13 @@ class Header extends React.Component {
 
         return(
             <div className="Header col-container">
-                <Link className="col-1" to='/'><span>Team Builder</span></Link>        
-                {window.getSession() && <NavBar links={navLinks}></NavBar>}
-                <div className="col-4 col-container">
-                   {window.getSession() && <UserInfo src={user.data} onLogOut={this.props.onLogOut}/>}
-                </div>
+                <Link className="app-logo" to='/'><span>Team Builder</span></Link>        
+                {window.getSession() 
+                ?<>
+                    <NavBar links={navLinks}></NavBar>
+                    <UserInfo src={user.data} onLogOut={this.props.onLogOut}/>
+                </>
+                :<Link className="unlogined-logo" to='/'><span>Team Builder</span></Link>  }
             </div>
         );
     }
@@ -33,26 +35,19 @@ const mapStateToProps = (state) => {
   
 export default connect(mapStateToProps,null)(Header)
 
-function HeaderLinks() {
-    return (
-        <div className="header-links">
-            <Link to="/login">Log in</Link>
-            <Link className="action-btn register-btn" to="/register">Create account</Link>
-        </div>
-    );
-}
-
 function UserInfo(props) {
     const {src} = props;
     return(
         <div className="header-user-info col-container">
-            <div className="col-9 col-container">
-                <span className="col-4">{src.firstName}</span>
-                <span className="col-5">{src.lastName}</span>
-                <div className="col-3">
-                    <img src={src.avatarUrl}></img>
+            <Link to="/userprofile/edit_profile">
+                <div className="col-container">
+                    <span className="col-4">{src.firstName}</span>
+                    <span className="col-5">{src.lastName}</span>
+                    <div className="col-3">
+                        <img src={src.avatarUrl}></img>
+                    </div>
                 </div>
-            </div>
+            </Link>
             <button className="action-btn log-out-btn col-3" onClick={props.onLogOut}>Log out</button>            
         </div>
     );   

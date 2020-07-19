@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
                     </div>
                     <div className="form-row">
                         <button type="submit" className={`btn btn-success ${submitting ? 'inactive-btn' : ''}`}>Submit</button>
-                        <Link className="action-btn register-btn" to="/register">Create account</Link>
+                        <Link className="action-btn register-btn" to="/userprofile/register">Create account</Link>
                     </div>                    
                 </form>
             </div>

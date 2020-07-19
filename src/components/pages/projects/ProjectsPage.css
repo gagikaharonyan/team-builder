@@ -1,0 +1,62 @@
+.Project {
+    min-height: 120px;
+    height: auto;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: visible;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.Project.container {
+    max-width: 600px;
+    font-family: 'Karla', sans-serif;
+    font-size: 17px;
+}
+
+.project-header {
+    width: 100%;
+    font-size: 35px;
+    border-bottom: 1px solid #a1a1a1;
+    padding-bottom: 7px;
+}
+
+.project-body {
+    width: 100%;
+    overflow: hidden; 
+}
+
+.procet-description {
+    max-width: 500px;
+    word-wrap: break-word;
+    text-overflow: ellipsis; 
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.project-vote-mark {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.voted-topic-mark {
+    color: #e6b647;
+}
+
+.unvoted-topic-mark {
+    color: #000000;
+    opacity: .5;
+}
+
+@media (max-width: 768px) { 
+    .procet-description {
+        max-width: 82%;
+    }
+
+    .project-vote-mark {
+        max-width: 15%;
+        margin-right: 0;
+    }
+ }

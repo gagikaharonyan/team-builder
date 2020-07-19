@@ -1,0 +1,62 @@
+.Team {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    overflow: visible;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.Team.container {
+    max-width: 600px;
+    font-family: 'Karla', sans-serif;
+    font-size: 17px;
+}
+
+.team-info, .team-members {
+    height: 100%;
+    align-items: flex-start;
+    overflow: hidden; 
+}
+
+.team-info span {
+    width: 230px;
+    border-bottom: 1px solid #a1a1a1;
+    font-size: 25px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.member {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.team-members span {
+    width: 80%;
+    max-width: 80%;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.team-members img {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border-radius: 50%;
+    padding: 0;
+    margin-left: 20px;
+}
+
+@media (max-width: 768px) { 
+    .Team {
+        flex-direction: column;
+        min-height: 410px;
+    }
+
+    .team-info, .team-members {
+        max-width: 100%;
+    }
+ }

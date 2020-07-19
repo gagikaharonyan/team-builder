@@ -33,7 +33,6 @@ export function userFetchData(data) {
             },
             (response) => {
                 if(!data.token) {
-                    console.log(`SETTING_SESSINO ${response.token}`)
                     window.setSession(response.token)
                 }
                 dispatch(userFetchDataSuccess(response))
@@ -52,4 +51,18 @@ export function userFetchLogOut() {
             dispatch(userLogOut());
         })
     }
+}
+
+export function userProfileEditFetch(data) {
+    return (dispatch) => {
+        const fetchData = {...data};
+        delete fetchData.companies;
+        delete fetchData.password;
+        delete fetchData.token;
+        window.client.editProfile(fetchData,
+            (res) => {
+                dispatch(userFetchDataSuccess(data));
+            }
+       );
+    };
 }

@@ -1,20 +1,48 @@
-import React from 'react'
-import './RegisterPage.css'
-import Loading from '../../loading/Loading'
+import React from 'react';
+import './RegisterPage.css';
+import Loading from '../../loading/Loading';
+import { Redirect } from "react-router-dom";
+import {connect} from 'react-redux';
+import {userProfileEditFetch} from '../../../redux/actionCreators/user';
 
-export default class RegisterPage extends React.Component {
-    handleRegister(data) {
-        window.client.register(data, (res) => console.log(res));
+ class RegisterPage extends React.Component {
+     state = {
+         isRegistered: false
+     }
+    handleSubmit = (data) => {
+        if(this.props.match.params.as === 'register'){
+            window.client.register(data, (res) => this.setState({isRegistered: true}));
+        } else {
+            this.props.profileEditeFetch(data);
+        }
     }
 
     render() {
+        const as = this.props.match.params.as;
+        if(!window.getSession() && as !== 'register' || this.state.isRegistered) {
+            return <Redirect to="/login" /> 
+        }
+        
         return (
             <div className="Registe-page page row-container">
-                <RegisterForm onRegister={this.handleRegister}></RegisterForm>
+                <RegisterForm as={as} user={this.props.user.data} onSubmit={this.handleSubmit}></RegisterForm>
             </div>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {user: state.user}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        profileEditeFetch: (data) => dispatch(userProfileEditFetch(data))
+    };
+};
+  
+  
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 
 class RegisterForm extends React.Component {
     state = {
@@ -33,6 +61,15 @@ class RegisterForm extends React.Component {
 
     componentDidMount() {
         window.client.getCompanies((companies) => this.setState({companies}));
+        if(this.props.as === 'edit_profile') {
+            this.setState(this.props.user);
+        } 
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.as === 'edit_profile') {
+            this.setState(nextProps.user);
+        } 
     }
 
     handleOnChange = event => {
@@ -41,9 +78,7 @@ class RegisterForm extends React.Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        let data = this.state;
-        delete data.companies;
-        this.props.onRegister(this.state);
+        this.props.onSubmit(this.state);
     }
 
     render() {
@@ -51,7 +86,7 @@ class RegisterForm extends React.Component {
 
         return(
             <div className="Register-form row-container container">
-                <h1>Create Account</h1>
+               {this.props.as === 'register' ?  <h1>Create Account</h1> : <h1>Edit Profile</h1>}
                 <form onSubmit={this.handleOnSubmit}>
                     <div className="form-row">
                         <div className="form-group col-md-6">
@@ -60,12 +95,14 @@ class RegisterForm extends React.Component {
                                  onChange={this.handleOnChange}  maxLenght="20" required></input>
                             <small id="emailHelp" className="form-text text-muted">Email shouldn't be used for another account.</small>
                         </div>
-                        <div className="form-group col-md-6">
-                            <label htmlFor="inputPassword4">Password</label>
-                            <input name="password" type="password" className="form-control" id="inputPassword4" 
-                                value={this.state.password} onChange={this.handleOnChange} minLength="6" maxLenght="20" required></input>
-                            <small id="emailHelp" className="form-text text-muted">Password must be at least 6 characters.</small>
-                        </div>
+                        {this.props.as === 'register'
+                         ?  <div className="form-group col-md-6">
+                                <label htmlFor="inputPassword4">Password</label>
+                                <input name="password" type="password" className="form-control" id="inputPassword4" 
+                                    value={this.state.password} onChange={this.handleOnChange} minLength="6" maxLenght="20" required></input>
+                                <small id="emailHelp" className="form-text text-muted">Password must be at least 6 characters.</small>
+                            </div>
+                         : ''}
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-6">
@@ -120,7 +157,7 @@ class RegisterForm extends React.Component {
                             :<Loading></Loading>}   
                         </div>                        
                     </div>
-                    <button type="submit" className="btn btn-primary">Create account</button>
+                    <button type="submit" className="btn btn-primary">{this.props.as === 'register' ? 'Create account' : 'Save'}</button>
                 </form>
             </div>
         );

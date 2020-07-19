@@ -12,14 +12,10 @@ class HomePage extends React.Component {
 
     render() {
         if(!window.getSession()) {
-            console.log('REDIRECTING Home -> Login')
             return <Redirect to="/login" /> 
-        }
-
+        } 
         return(
-            <div className="Home-page page">
-                <h1>Home</h1>
-            </div> 
+            <Redirect to="/teams" /> 
         );
     }
 }

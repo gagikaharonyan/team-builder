@@ -24,7 +24,6 @@ class TopicsPage extends React.Component {
 
     render() {
         const {topics} = this.props;
-        console.log(topics)
         if(!window.getSession()) {
             return <Redirect to="/login" /> 
         }
