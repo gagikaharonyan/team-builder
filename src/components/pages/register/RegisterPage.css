@@ -1,0 +1,9 @@
+.Register-form {
+    margin-bottom: 30px;
+}
+
+@media (min-width: 576px) { 
+    .Register-form.container {
+        max-width: 600px;
+    }
+ }

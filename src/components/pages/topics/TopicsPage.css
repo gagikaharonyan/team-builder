@@ -1,0 +1,99 @@
+.Topic.container {
+    max-width: 600px;
+    font-family: 'Karla', sans-serif;
+    font-size: 17px;
+}
+
+.add-topic-btn {
+    font-size: 25px;
+    border: 1px solid #a1a1a1;
+    padding: 5px 30px;
+    margin-bottom: 20px;
+}
+
+.add-topic-input {
+    height: 45px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+    padding: 5px 20px;
+}
+
+.create-topic-btn {
+    font-size: 20px;
+    background-color: #f0f0f0;
+    color: #415d38;
+    border: none;
+    outline: none;
+    padding: 0px 20px;
+    margin: 10px;
+}
+
+.cancel-topic-btn {
+    font-size: 18px;
+    background-color: #f0f0f0;
+    color: #2d2f2c;
+    border: none;
+    outline: none;
+    padding: 0px 20px;
+    margin: 10px;
+}
+
+.adding-topic-loader {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Topic {
+    height: 120px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.topic-header {
+    width: 100%;
+    font-size: 35px;
+    border-bottom: 1px solid #a1a1a1;
+    padding-bottom: 7px;
+}
+
+.topic-action-bar {
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.topic-action-bar span{
+    font-size: 23px;
+}
+
+.topic-votings-count {
+    width: max-content;
+}
+
+.vote-mark {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.voted-topic-mark {
+    color: #e6b647;
+}
+
+.unvoted-topic-mark {
+    color: #000000;
+    opacity: .5;
+}
+
+.delete-mark {
+    font-size: 24px;
+    color: brown;
+    cursor: pointer;
+    margin-left: 50px;
+    
+}
