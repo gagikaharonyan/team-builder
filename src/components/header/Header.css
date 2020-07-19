@@ -12,7 +12,13 @@
     justify-content: space-between;
 }
 
+.app-logo {
+    font-size: 25px;
+    margin-left: 20px;
+}
+
 .unlogined-logo {
+    visibility: hidden;
     font-size: 25px;
     margin: auto;
 }
@@ -46,6 +52,8 @@
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
+    padding: 0;
+    padding-left: 15px;
 }
 
 .header-user-info img {
@@ -64,6 +72,10 @@
 @media (max-width: 768px) { 
     .app-logo {
         display: none;
+    }
+
+    .unlogined-logo {
+        visibility: visible;
     }
     
     .header-user-info {

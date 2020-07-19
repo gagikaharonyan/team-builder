@@ -12,7 +12,6 @@ class TeamsPage extends React.Component {
 
     render() {
         const {teams} = this.props;
-        console.log(teams)
         if(!window.getSession()) {
             return <Redirect to="/login" /> 
         }
@@ -26,8 +25,7 @@ class TeamsPage extends React.Component {
                         key={team.id}
                         src={team}
                     ></Team>)}
-            </div> 
-        );
+            </div>);
     }
 }
 

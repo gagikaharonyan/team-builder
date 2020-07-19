@@ -17,6 +17,5 @@ export default function teams (state = initialState, action) {
             return {...state, haveError: action.haveError};
         default:
             return state;
-            break;
     }
 }

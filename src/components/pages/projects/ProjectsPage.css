@@ -25,6 +25,7 @@
 .project-body {
     width: 100%;
     overflow: hidden; 
+    padding-top: 10px;
 }
 
 .procet-description {

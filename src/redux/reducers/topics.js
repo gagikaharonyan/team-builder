@@ -29,9 +29,9 @@ export default function topics (state = initialState, action) {
         case 'TOPIC_VOTING_SUCCESS':
             
             return {...state, data: state.data.map((topic => {
-                if(topic.id == action.id) {
-                    return action.voteType == 'like'
-                    ?{...topic, votingsCount: topic.votingsCount + 1, votedByMe: true}
+                if(topic.id === action.id) {
+                    return action.voteType === 'like'
+                    ?{...topic, votingsCount: topic.votingsCount + 1, votedByMe: true, canDelete: false}
                     :{...topic, votingsCount: topic.votingsCount - 1, votedByMe: false}
                 }
                 return topic

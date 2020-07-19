@@ -6,9 +6,10 @@ import {connect} from 'react-redux';
 import {userProfileEditFetch} from '../../../redux/actionCreators/user';
 
  class RegisterPage extends React.Component {
-     state = {
+    state = {
          isRegistered: false
-     }
+    }
+
     handleSubmit = (data) => {
         if(this.props.match.params.as === 'register'){
             window.client.register(data, (res) => this.setState({isRegistered: true}));
@@ -19,13 +20,13 @@ import {userProfileEditFetch} from '../../../redux/actionCreators/user';
 
     render() {
         const as = this.props.match.params.as;
-        if(!window.getSession() && as !== 'register' || this.state.isRegistered) {
+        if((!window.getSession() && as !== 'register') || this.state.isRegistered) {
             return <Redirect to="/login" /> 
         }
         
         return (
             <div className="Registe-page page row-container">
-                <RegisterForm as={as} user={this.props.user.data} onSubmit={this.handleSubmit}></RegisterForm>
+                <RegisterForm as={as} user={this.props.user} onSubmit={this.handleSubmit}></RegisterForm>
             </div>
         );
     }
@@ -62,13 +63,14 @@ class RegisterForm extends React.Component {
     componentDidMount() {
         window.client.getCompanies((companies) => this.setState({companies}));
         if(this.props.as === 'edit_profile') {
-            this.setState(this.props.user);
+            this.setState(this.props.user.data);
         } 
     }
 
     componentWillReceiveProps(nextProps) {
+        
         if(nextProps.as === 'edit_profile') {
-            this.setState(nextProps.user);
+            this.setState(nextProps.user.data);
         } 
     }
 
@@ -83,6 +85,7 @@ class RegisterForm extends React.Component {
 
     render() {
         const {companies} = this.state;
+        const submitting = this.props.user.isLoading;
 
         return(
             <div className="Register-form row-container container">
@@ -92,14 +95,14 @@ class RegisterForm extends React.Component {
                         <div className="form-group col-md-6">
                             <label htmlFor="inputEmail4">Email</label>
                             <input name="email" type="email" className="form-control" id="inputEmail4" value={this.state.email}
-                                 onChange={this.handleOnChange}  maxLenght="20" required></input>
+                                 onChange={this.handleOnChange}  maxLength="20" required></input>
                             <small id="emailHelp" className="form-text text-muted">Email shouldn't be used for another account.</small>
                         </div>
                         {this.props.as === 'register'
                          ?  <div className="form-group col-md-6">
                                 <label htmlFor="inputPassword4">Password</label>
                                 <input name="password" type="password" className="form-control" id="inputPassword4" 
-                                    value={this.state.password} onChange={this.handleOnChange} minLength="6" maxLenght="20" required></input>
+                                    value={this.state.password} onChange={this.handleOnChange} minLength="6" maxLength="20" required></input>
                                 <small id="emailHelp" className="form-text text-muted">Password must be at least 6 characters.</small>
                             </div>
                          : ''}
@@ -108,12 +111,12 @@ class RegisterForm extends React.Component {
                         <div className="form-group col-md-6">
                             <label htmlFor="inputFirstName">First name</label>
                             <input name="firstName" type="text" className="form-control" id="inputFirstName"
-                                value={this.state.firstName} onChange={this.handleOnChange}  maxLenght="15" required></input>
+                                value={this.state.firstName} onChange={this.handleOnChange}  maxLength="15" required></input>
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="inputLastname">Last name</label>
                             <input name="lastName" type="text" className="form-control" id="inputLastname" 
-                                value={this.state.lastName} onChange={this.handleOnChange}  maxLenght="15" required></input>
+                                value={this.state.lastName} onChange={this.handleOnChange}  maxLength="15" required></input>
                         </div>
                     </div>
                     <div className="form-row">
@@ -157,7 +160,7 @@ class RegisterForm extends React.Component {
                             :<Loading></Loading>}   
                         </div>                        
                     </div>
-                    <button type="submit" className="btn btn-primary">{this.props.as === 'register' ? 'Create account' : 'Save'}</button>
+                    <button type="submit" className={`btn btn-success ${submitting ? 'inactive-btn' : ''}`}>{this.props.as === 'register' ? 'Create account' : 'Save'}</button>
                 </form>
             </div>
         );

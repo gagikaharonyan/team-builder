@@ -1,9 +1,8 @@
 import React from 'react' 
 import './Header.css'
 import NavBar from '../navBar/NavBar'
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {userFetchLogOut} from '../../redux/actionCreators/user'
 
 class Header extends React.Component {
     
@@ -44,7 +43,7 @@ function UserInfo(props) {
                     <span className="col-4">{src.firstName}</span>
                     <span className="col-5">{src.lastName}</span>
                     <div className="col-3">
-                        <img src={src.avatarUrl}></img>
+                        <img src={src.avatarUrl} alt="user"></img>
                     </div>
                 </div>
             </Link>

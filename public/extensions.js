@@ -1,21 +1,22 @@
 window.getSession = function() {
-  return sessionStorage.getItem('sessionId');
-}
-window.removeSession = function() {
-  delete  window.sessionStorage.sessionId;
+  return localStorage.getItem('sessionId') || sessionStorage.getItem('sessionId');
 }
 
-window.setSession = function(token) {
-  sessionStorage.setItem('sessionId', token);
+window.removeSession = function() {
+  delete  window.sessionStorage.sessionId;
+  delete  window.localStorage.sessionId;
+}
+
+window.setSession = function(token, rememberMe) {
+  if(rememberMe) {
+    localStorage.setItem('sessionId', token);
+  } else {
+    sessionStorage.setItem('sessionId', token);
+  }
 }
 
 window.client = (function() {
   const base = 'https://picsart-bootcamp-2020-api.herokuapp.com';
-  const headerWitToken = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'token' : window.getSession()
-  }
   function setHeadersWithToken() {
     return {
       'Content-Type': 'application/json',
@@ -24,7 +25,7 @@ window.client = (function() {
     }
   }
 
-    function login(data, onLoading, onSuccess, onError) {
+    function login(data, onInvalidData, onLoading, onSuccess, onError) {
       onLoading(true);
       (data.token
         ?fetch(base+'/api/v1/users', {
@@ -45,7 +46,9 @@ window.client = (function() {
         }))
       .then((response) => {
           onLoading(false);
-
+          if(response.status == '404' || response.status == '401') {
+            onInvalidData()
+          }
           return checkStatus(response);
       })
       .then(parseJSON)
@@ -73,13 +76,19 @@ window.client = (function() {
       .then((response) => onSuccess(response))
     }
 
-    function editProfile(data, onSuccess) {
+    function editProfile(data, onLoading, onSuccess, onError) {
+      onLoading(true);
       fetch(base+'/api/v1/users/update', {
         headers: setHeadersWithToken(),
         method: 'PUT',
         body: JSON.stringify(data)
-      }).then(checkStatus)
+      }).then((response) => {
+        onLoading(false);
+      
+        return checkStatus(response)
+      })        
       .then((response) => onSuccess(response))
+      .catch((error) => onError(error));
     }
 
     function logOut(onSuccess) {
@@ -113,7 +122,7 @@ window.client = (function() {
       onLoading(true);
 
       fetch(base+'/api/v1/topics', {
-          headers: headerWitToken,
+          headers: setHeadersWithToken(),
           method: 'POST',
           body: JSON.stringify({title})
         })
@@ -131,7 +140,7 @@ window.client = (function() {
       onLoading(true);
 
       fetch(base+'/api/v1/topics/'+id, {
-          headers: headerWitToken,
+          headers: setHeadersWithToken(),
           method: 'DELETE'
         })
       .then((response) => {
@@ -147,7 +156,7 @@ window.client = (function() {
       onLoading(true);
 
       fetch(base+`/api/v1/topics/${id}/voting`, {
-          headers: headerWitToken,
+          headers: setHeadersWithToken(),
           method: 'POST',
           body: JSON.stringify({type})
         })
@@ -161,35 +170,20 @@ window.client = (function() {
     }
 
     function getProjects(onLoading, onSuccess, onError) {
-      // onLoading(true);
+      onLoading(true);
 
-      // fetch(base+'/api/v1/projects', {
-      //     headers: headerWitToken,
-      //     method: 'GET'
-      //   })
-      // .then((response) => {
-      //     onLoading(false);
+      fetch(base+'/api/v1/projects', {
+          headers: setHeadersWithToken(),
+          method: 'GET'
+        })
+      .then((response) => {
+          onLoading(false);
 
-      //     return checkStatus(response);
-      // })
-      // .then(parseJSON)
-      // .then((response) => onSuccess(response))
-      // .catch((error) => onError(error));
-
-      onSuccess([
-        {
-          id: 1,
-          title: 'Image Crop',
-          description: 'Test descsssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss sssssssssssssssssssssssssssssssssssssssssssssssssssss',
-          votedByMe: true,
-        },
-         {
-          id: 2,
-          title: 'Canvas',
-          description: 'Test desc2',
-          votedByMe: false,
-        }
-    ])
+          return checkStatus(response);
+      })
+      .then(parseJSON)
+      .then((response) => onSuccess(response))
+      .catch((error) => onError(error));
     }
 
     function voteProject(id, type, onLoading, onSuccess, onError) {
@@ -214,7 +208,7 @@ window.client = (function() {
       // onLoading(true);
 
       // fetch(base+'/api/v1/teams', {
-      //     headers: headerWitToken,
+      //     headers: setHeadersWithToken(),
       //     method: 'GET'
       //   })
       // .then((response) => {

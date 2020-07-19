@@ -7,13 +7,14 @@ import {connect} from 'react-redux';
 
 class LoginPage extends React.Component {
     render() {
-        if(this.props.user.isLoggedIn) {
+        const {user} = this.props;
+        if(user.isLoggedIn) {
             return <Redirect to='/'></Redirect>
         }
 
         return (
             <div className="Login-page page row-container">
-                <LoginForm onLogin={this.props.fetchData}></LoginForm>
+                <LoginForm onLogin={this.props.fetchData} submitting={user.isLoading}></LoginForm>
             </div>
         );
     }
@@ -25,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (data) => dispatch(userFetchData(data))
+        fetchData: (data, rememberMe, onInvalidData) => dispatch(userFetchData(data, rememberMe, onInvalidData))
     };
 };
   
@@ -35,6 +36,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 class LoginForm extends React.Component {
     state = {
         formData: {email: '', password: ''},
+        rememberMe: false,
+        isDataInvalid: false
     }
 
     handleOnChange = event => {
@@ -43,12 +46,12 @@ class LoginForm extends React.Component {
 
     handleOnSubmit = (event) => {
         event.preventDefault();
-        this.props.onLogin(this.state.formData);
+        this.props.onLogin(this.state.formData, this.state.rememberMe, () => {
+            this.setState({isDataInvalid: true});
+        });
     }
 
-    render() {
-        const submitting = false;
-        
+    render() {        
         return (
             <div className="Login-form container row-container">
                 <h1 className="form-caption">Log In</h1>
@@ -64,11 +67,13 @@ class LoginForm extends React.Component {
                             value={this.state.formData.password} onChange={this.handleOnChange} required></input>
                     </div>
                     <div className="form-group form-check">
-                        <input type="checkbox" className="form-check-input" id="exampleCheck1"></input>
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" 
+                            checked={this.state.rememberMe} onChange={ev => this.setState({rememberMe: ev.target.checked})}></input>
                         <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                     </div>
+                    {this.state.isDataInvalid && <span className="text-danger">Invalid username or password</span>}
                     <div className="form-row">
-                        <button type="submit" className={`btn btn-success ${submitting ? 'inactive-btn' : ''}`}>Submit</button>
+                        <button type="submit" className={`btn btn-success ${this.props.submitting ? 'inactive-btn' : ''}`}>Submit</button>
                         <Link className="action-btn register-btn" to="/userprofile/register">Create account</Link>
                     </div>                    
                 </form>

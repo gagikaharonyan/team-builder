@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Header from './components/header/Header'
 import LoginPage from './components/pages/login/LoginPage';
 import RegisterPage from './components/pages/register/RegisterPage';
@@ -29,7 +29,6 @@ class App extends React.Component {
                 <Route path='/teams' component={Teams}/>
                 <Route path='/topics' component={Topics}/>
             </Switch>
-            {/* {window.getSession() ? '' : <Redirect to='/login'></Redirect>} */}
       </>);
     }
    

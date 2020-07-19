@@ -25,15 +25,15 @@ export function userLogOut() {
     };
 }
 
-export function userFetchData(data) {
+export function userFetchData(data, rememberMe, onInvalidData) {
     return (dispatch) => {
-        window.client.login(data,
+        window.client.login(data, onInvalidData,
             (loading) => {
                 dispatch(userisLoading(loading));
             },
             (response) => {
                 if(!data.token) {
-                    window.setSession(response.token)
+                    window.setSession(response.token, rememberMe)
                 }
                 dispatch(userFetchDataSuccess(response))
             },
@@ -60,8 +60,15 @@ export function userProfileEditFetch(data) {
         delete fetchData.password;
         delete fetchData.token;
         window.client.editProfile(fetchData,
-            (res) => {
-                dispatch(userFetchDataSuccess(data));
+            (loading) => {
+                dispatch(userisLoading(loading));
+            },
+            () => {
+                console.log('success')
+                dispatch(userFetchDataSuccess(data))
+            },
+            (error) => {
+                dispatch(userHasError(true))
             }
        );
     };

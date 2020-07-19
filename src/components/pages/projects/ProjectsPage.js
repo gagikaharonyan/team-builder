@@ -16,7 +16,6 @@ class ProjectsPage extends React.Component {
 
     render() {
         const {projects} = this.props;
-        console.log(projects)
         if(!window.getSession()) {
             return <Redirect to="/login" /> 
         }

@@ -18,13 +18,12 @@ export default function projects (state = initialState, action) {
         case 'PROJECT_VOTING_SUCCESS':
             
             return {...state, data: state.data.map((project => {
-                if(project.id == action.id) {
+                if(project.id === action.id) {
                     return {...project,  votedByMe: action.voteType === 'like'}
                 }
                 return project
             }))};
         default:
             return state;
-            break;
     }
 }
