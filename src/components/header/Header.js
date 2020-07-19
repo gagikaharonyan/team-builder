@@ -3,6 +3,7 @@ import './Header.css'
 import NavBar from '../navBar/NavBar'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import UserProfileDisplay from './UserProfileDisplay';
 
 class Header extends React.Component {
     
@@ -34,21 +35,33 @@ const mapStateToProps = (state) => {
   
 export default connect(mapStateToProps,null)(Header)
 
-function UserInfo(props) {
-    const {src} = props;
-    return(
-        <div className="header-user-info col-container">
-            <Link to="/userprofile/edit_profile">
-                <div className="col-container">
-                    <span className="col-4">{src.firstName}</span>
-                    <span className="col-5">{src.lastName}</span>
-                    <div className="col-3">
-                        <img src={src.avatarUrl} alt="user"></img>
+class UserInfo extends React.Component {
+    state = {
+        isUserDisplayOpen: false
+    }
+    //<Link to="/userprofile/edit_profile">
+    render() {
+        const {src} = this.props;
+        return(<>
+            <div className="header-user-info col-container">
+                <Link to="#">
+                    <div className="col-container" onClick={() => this.setState({isUserDisplayOpen: true})}>
+                        <span className="col-4">{src.firstName}</span>
+                        <span className="col-5">{src.lastName}</span>
+                        <div className="col-3">
+                            <img src={src.avatarUrl} alt="user"></img>
+                        </div>
                     </div>
-                </div>
-            </Link>
-            <button className="action-btn log-out-btn col-3" onClick={props.onLogOut}>Log out</button>            
-        </div>
-    );   
+                </Link>
+                <button className="action-btn log-out-btn col-3" onClick={this.props.onLogOut}>Log out</button>            
+            </div>
+            {this.state.isUserDisplayOpen && <UserProfileDisplay 
+                                                src={src}
+                                                onClose={() => this.setState({isUserDisplayOpen: false})}>
+                                            </UserProfileDisplay>}
+            </>
+        );  
+    }
+     
 }
 
