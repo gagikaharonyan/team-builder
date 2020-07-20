@@ -204,114 +204,21 @@ window.client = (function() {
     }
 
     function getTeams(onLoading, onSuccess, onError) {
-      // onLoading(true);
+      onLoading(true);
 
-      // fetch(base+'/api/v1/teams', {
-      //     headers: setHeadersWithToken(),
-      //     method: 'GET'
-      //   })
-      // .then((response) => {
-      //     onLoading(false);
+      fetch(base+'/api/v1/teams', {
+          headers: setHeadersWithToken(),
+          method: 'GET'
+        })
+      .then((response) => {
+          onLoading(false);
 
-      //     return checkStatus(response);
-      // })
-      // .then(parseJSON)
-      // .then((response) => onSuccess(response))
-      // .catch((error) => onError(error));
-
-      onSuccess([
-        {
-           id: 1,
-           name: 'Editor',
-           topic: 'Hooks',
-           project: 'Canvas',
-           members: [
-              {
-                  firstName: 'Gagikkk1',
-                  lastName: 'Aharonyaaannnnnnnnnnnn',
-                  avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-              },
-              {
-                firstName: 'Namte2',
-                lastName: 'Lnassmtttte',
-                avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-            },
-            {
-              firstName: 'Naasdasdme3',
-              lastName: 'Lnassssddme',
-              avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-            },
-            {
-              firstName: 'Name4',
-              lastName: 'Lnamtttttte',
-              avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-            }
-           ]
-        },
-        {
-          id: 2,
-          name: 'Editor',
-          topic: 'Hooks',
-          project: 'Canvas',
-          members: [
-             {
-                 firstName: 'Gagikkk1',
-                 lastName: 'Aharonyaaannnnnnnnnnnn',
-                 avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-             },
-             {
-               firstName: 'Namte2',
-               lastName: 'Lnassmtttte',
-               avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-           },
-           {
-             firstName: 'Naasdasdme3',
-             lastName: 'Lnassssddme',
-             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-           },
-           {
-             firstName: 'Name4',
-             lastName: 'Lnamtttttte',
-             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-           },
-           {
-            firstName: 'Name4',
-            lastName: 'Lnamtttttte',
-            avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-          }
-          ]
-       },
-       {
-        id: 3,
-        name: 'Editor',
-        topic: 'Hooks',
-        project: 'Canvas',
-        members: [
-           {
-               firstName: 'Gagikkk1',
-               lastName: 'Aharonyaaannnnnnnnnnnn',
-               avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-           },
-           {
-             firstName: 'Namte2',
-             lastName: 'Lnassmtttte',
-             avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-         },
-         {
-           firstName: 'Naasdasdme3',
-           lastName: 'Lnassssddme',
-           avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-         },
-         {
-           firstName: 'Name4',
-           lastName: 'Lnamtttttte',
-           avatarUrl: 'https://scontent.fevn1-4.fna.fbcdn.net/v/t1.0-9/105478018_1321342364736969_7626231116641582253_o.jpg?_nc_cat=102&_nc_sid=09cbfe&_nc_ohc=IoNgCMzf4FoAX-FJQjJ&_nc_ht=scontent.fevn1-4.fna&oh=20367cbc3463ea1cfbf8605f9a2f0412&oe=5F358D07'
-         }
-        ]
-     },
-        
-        
-      ])
+          return checkStatus(response);
+      })
+      .then(parseJSON)
+      .then((response) => onSuccess(response))
+      .catch((error) => onError(error));
+    
     }
    
     function checkStatus(response) {
