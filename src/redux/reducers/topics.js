@@ -38,6 +38,5 @@ export default function topics (state = initialState, action) {
             }))};
         default:
             return state;
-            break;
     }
 }

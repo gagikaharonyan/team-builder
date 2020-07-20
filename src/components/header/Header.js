@@ -39,13 +39,13 @@ class UserInfo extends React.Component {
     state = {
         isUserDisplayOpen: false
     }
-    //<Link to="/userprofile/edit_profile">
+    
     render() {
         const {src} = this.props;
         return(<>
             <div className="header-user-info col-container">
                 <Link to="#">
-                    <div className="col-container" onClick={() => this.setState({isUserDisplayOpen: true})}>
+                    <div className="col-container" onClick={() => this.setState({isUserDisplayOpen: !this.state.isUserDisplayOpen})}>
                         <span className="col-4">{src.firstName}</span>
                         <span className="col-5">{src.lastName}</span>
                         <div className="col-3">

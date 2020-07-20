@@ -55,7 +55,7 @@ export default function UserProfileDisplay(props) {
       </CardActionArea>
       <CardActions>
         <Link to="/userprofile/edit_profile" className={classes.editeLink} onClick={props.onClose}>
-          Edite profile
+          Edit profile
         </Link>
         <Button size="small" color="primary" onClick={props.onClose}>
           Close
